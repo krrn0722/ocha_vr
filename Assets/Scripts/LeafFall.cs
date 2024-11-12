@@ -6,6 +6,7 @@ public class LeafFall : MonoBehaviour
 {
     [SerializeField] private Transform dish;
     [SerializeField] private GameObject dishObj;
+    float coolTime = 0;
     void Start()
     {
         
@@ -18,24 +19,38 @@ public class LeafFall : MonoBehaviour
         if(180 < dish.eulerAngles.x && dish.eulerAngles.x < 220 || 320 < dish.eulerAngles.x && dish.eulerAngles.x < 360)
         {
 
-            Debug.Log("おちる");
+            // Debug.Log("おちる");
         }
         // if()
 
         // 0 < a <180 全部おちる
         else if(0 < dish.eulerAngles.x && dish.eulerAngles.x < 180)
         {
-            var childCount = dish.childCount;
-            for (int i = 0; i < childCount; i++)
+            if(coolTime > 3)
             {
-                dish.GetChild(i).parent = null;
-                dishObj = dish.GetChild(i).gameObject;
+                var childCount = dish.childCount;
+                if(childCount > 0)
+                {
+                    Debug.Log(childCount+ "マイおちる");
+                    for (int i = 0; i < childCount; i++)
+                    {
+                        dishObj = dish.GetChild(i).gameObject;
+                        if(dishObj.tag == "Untagged")
+                        {
+                            dish.GetChild(i).parent = null;
+                            
 
-                dishObj.GetComponent<Collider>().enabled = true;
-                dishObj.GetComponent<Rigidbody>().isKinematic = false;
+                            dishObj.GetComponent<Collider>().enabled = true;
+                            dishObj.GetComponent<Rigidbody>().isKinematic = false;
+                        }
+
+                    }
+                }
+                coolTime = 0;
             }
 
             // num_sheet = 0;
         }
+        coolTime += Time.deltaTime;
     }
 }
