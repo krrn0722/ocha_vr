@@ -25,6 +25,6 @@ public class OpeGrav : MonoBehaviour
 
     public void addTag()
     {
-        this.tag = "TeaLeaf";
+        this.tag = "Touched";
     }
 }

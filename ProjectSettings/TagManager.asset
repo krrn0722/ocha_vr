@@ -13,6 +13,9 @@ TagManager:
   - QDSUITextInputField
   - QDSUITextSecondaryColor
   - WaitKinematicLeaf
+  - NotTouch
+  - Touched
+  - NotMove
   layers:
   - Default
   - TransparentFX

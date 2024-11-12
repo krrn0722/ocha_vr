@@ -35,7 +35,7 @@ public class LeafFall : MonoBehaviour
                     for (int i = 0; i < childCount; i++)
                     {
                         dishObj = dish.GetChild(i).gameObject;
-                        if(dishObj.tag == "Untagged")
+                        if(dishObj.tag == "NotMove")
                         {
                             dish.GetChild(i).parent = null;
                             

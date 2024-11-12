@@ -18,30 +18,29 @@ public class Basket : MonoBehaviour
      // お茶の葉が籠に入ったとき
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TeaLeaf"))
+        obj = other.gameObject;
+        if (obj.CompareTag("Touched"))
         {
-            obj = other.gameObject;
+            
             rb = obj.GetComponent<Rigidbody>();
-            if (rb.isKinematic == false)
-            {
-                Debug.Log(other.gameObject.name + "がトリガーに入りました。");  
-                // waitKinematicColliderList.Add(other);
-                obj.tag = "WaitKinematicLeaf";
-                StartCoroutine(DelayCoroutine(0.4f, () => {
-                    
-                    // WaitLineamaticLeafのタグがついていれば
-                    if(obj.CompareTag("WaitKinematicLeaf"))
-                    {
-                        // キネマティックにして籠に入れる
-                        obj.transform.parent = basket.transform;
-                        other.enabled = false;
-                        rb.isKinematic = true;
-                        obj.tag = "Untagged";
-                        num_sheet += 1;
-                        Debug.Log("Tea Leaf entered! Score: " + num_sheet);
-                    }
-                }));
-            }
+            
+            Debug.Log(other.gameObject.name + "がトリガーに入りました。");  
+            // waitKinematicColliderList.Add(other);
+            obj.tag = "WaitKinematicLeaf";
+            StartCoroutine(DelayCoroutine(0.4f, () => {
+                
+                // WaitLineamaticLeafのタグがついていれば
+                if(obj.CompareTag("WaitKinematicLeaf"))
+                {
+                    // キネマティックにして籠に入れる
+                    obj.transform.parent = basket.transform;
+                    other.enabled = false;
+                    rb.isKinematic = true;
+                    obj.tag = "NotMove";
+                    num_sheet += 1;
+                    Debug.Log("Tea Leaf entered! Score: " + num_sheet);
+                }
+            }));
         }
     }
     private IEnumerator DelayCoroutine(float seconds, UnityAction callback)
@@ -53,20 +52,11 @@ public class Basket : MonoBehaviour
     // お茶の葉が籠から出たとき
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("TeaLeaf"))
+        var obj = other.gameObject;
+        if (obj.CompareTag("WaitKinematicLeaf"))
         {
-            // findedIndex = waitKinematicColliderList.IndexOf(other);
-            // if(findedIndex < 0)
-            // {
-            //     Debug.Log("そんなことはない。。。はず");
-            //     return;
-            // }
-            // else
-            // {
-            //     // キネマティック待ちリストから削除
-            //     waitKinematicColliderList.RemoveAt(findedIndex);
-            // }
-            other.gameObject.tag = "Untagged";
+            
+            other.gameObject.tag = "Touched";
 
             Debug.Log(other.gameObject.name + "がトリガーから出ました。");  
             Debug.Log("Tea Leaf exited! Score: " + num_sheet);
@@ -78,4 +68,6 @@ public class Basket : MonoBehaviour
     {
         return num_sheet;
     }
+
+    
 }
