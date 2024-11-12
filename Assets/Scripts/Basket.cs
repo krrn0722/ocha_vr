@@ -25,16 +25,18 @@ public class Basket : MonoBehaviour
             if (rb.isKinematic == false)
             {
                 Debug.Log(other.gameObject.name + "がトリガーに入りました。");  
-                waitKinematicColliderList.Add(other);
+                // waitKinematicColliderList.Add(other);
+                obj.tag = "WaitKinematicLeaf";
                 StartCoroutine(DelayCoroutine(0.4f, () => {
                     
-                    // ウェイトリストの中にいれば
-                    if(waitKinematicColliderList.Contains(other))
+                    // WaitLineamaticLeafのタグがついていれば
+                    if(obj.CompareTag("WaitKinematicLeaf"))
                     {
                         // キネマティックにして籠に入れる
                         obj.transform.parent = basket.transform;
                         other.enabled = false;
                         rb.isKinematic = true;
+                        obj.tag = "Untagged";
                         num_sheet += 1;
                         Debug.Log("Tea Leaf entered! Score: " + num_sheet);
                     }
@@ -53,17 +55,18 @@ public class Basket : MonoBehaviour
     {
         if (other.CompareTag("TeaLeaf"))
         {
-            findedIndex = waitKinematicColliderList.IndexOf(other);
-            if(findedIndex < 0)
-            {
-                Debug.Log("そんなことはない。。。はず");
-                return;
-            }
-            else
-            {
-                // キネマティック待ちリストから削除
-                waitKinematicColliderList.RemoveAt(findedIndex);
-            }
+            // findedIndex = waitKinematicColliderList.IndexOf(other);
+            // if(findedIndex < 0)
+            // {
+            //     Debug.Log("そんなことはない。。。はず");
+            //     return;
+            // }
+            // else
+            // {
+            //     // キネマティック待ちリストから削除
+            //     waitKinematicColliderList.RemoveAt(findedIndex);
+            // }
+            other.gameObject.tag = "Untagged";
 
             Debug.Log(other.gameObject.name + "がトリガーから出ました。");  
             Debug.Log("Tea Leaf exited! Score: " + num_sheet);

@@ -8,6 +8,11 @@ TagManager:
   - QDSUIAccentColor
   - QDSUIPrimaryButton
   - TeaLeaf
+  - QDSUISecondaryButton
+  - QDSUIIcon
+  - QDSUITextInputField
+  - QDSUITextSecondaryColor
+  - WaitKinematicLeaf
   layers:
   - Default
   - TransparentFX

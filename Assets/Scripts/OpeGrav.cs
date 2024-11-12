@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class OpeGrav : MonoBehaviour
 {
-    public GameObject obj;
+    // public GameObject obj;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = obj.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -21,5 +21,10 @@ public class OpeGrav : MonoBehaviour
     public void onGrav()
     {
         rb.isKinematic = false;
+    }
+
+    public void addTag()
+    {
+        this.tag = "TeaLeaf";
     }
 }
