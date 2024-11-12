@@ -5,11 +5,13 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioClip sound1;
-    AudioSource audioSource;
+    public AudioClip explodeSound;
+
+    [SerializeField] AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,4 +23,8 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.PlayOneShot(sound1);
     }
+    public void playExplodeSound()
+    {
+        audioSource.PlayOneShot(explodeSound);
+    }    
 }

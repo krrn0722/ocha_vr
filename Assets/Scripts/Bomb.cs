@@ -11,6 +11,7 @@ public class Bomb : MonoBehaviour
     private GameObject leafObj;
     [SerializeField] private float distance;
     [SerializeField] private float speed;
+    [SerializeField] private AudioManager audiomanager;
     private Vector3 flyVec;
 
     private IEnumerator DelayCoroutine(float seconds, UnityAction callback)
@@ -43,6 +44,7 @@ public class Bomb : MonoBehaviour
 
         StartCoroutine(DelayCoroutine(2f, () => {
             Debug.Log("ぶっとばす！！！！");
+            audiomanager.playExplodeSound();
             //範囲内に皿があったら吹っ飛ばす
             if(Vector3.Distance(bombObj.transform.position, dishObj.transform.position) < distance)
             {

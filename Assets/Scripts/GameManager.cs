@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Basket basket;
     [SerializeField] private PlayFabController playFabController;
     [SerializeField] private GameObject rankingObj;
-    float countDownTime = 3.0f;
+    [SerializeField] private BGMManager bgmManager;
+    float countDownTime = 3.4f;
     private int score;
 
     public enum GameStatus
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         gameStatus = GameStatus.PLAYING;
+        bgmManager.startGameBGM();
+
         // 動けるようにする
         shakeMove.onCanMove();
         // タイマー開始
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
         gameStatus = GameStatus.FINISHED;
         // 集計を行う
         score = basket.GetScore();
+        bgmManager.stopGameBGM();
 
         // ここでスコアを送信する
         score = 500;
