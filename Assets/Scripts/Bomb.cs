@@ -12,6 +12,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float distance;
     [SerializeField] private float speed;
     [SerializeField] private AudioManager audiomanager;
+    [SerializeField] private GameObject explosionFrefab;
     private Vector3 flyVec;
 
     private IEnumerator DelayCoroutine(float seconds, UnityAction callback)
@@ -23,7 +24,6 @@ public class Bomb : MonoBehaviour
     public void Kobayashibomp()
     {  
         Debug.Log("関数ないです Bomb!");
-        //エフェクトだす
         // 音鳴らす
         // StartCoroutine(
         //     DelayCoroutine(3f, () => {
@@ -44,6 +44,10 @@ public class Bomb : MonoBehaviour
 
         StartCoroutine(DelayCoroutine(2f, () => {
             Debug.Log("ぶっとばす！！！！");
+            //エフェクトだす
+            Vector3 explosionPosition = transform.position;
+            GameObject explosion = Instantiate(explosionFrefab, explosionPosition, Quaternion.identity);
+            Destroy(explosion, 1.0f);
             audiomanager.playExplodeSound();
             //範囲内に皿があったら吹っ飛ばす
             if(Vector3.Distance(bombObj.transform.position, dishObj.transform.position) < distance)
