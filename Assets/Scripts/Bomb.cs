@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] GameObject bombObj;
+    [SerializeField] private GameObject bomb_center;
     [SerializeField] private GameObject dishObj;
     private GameObject leafObj;
     [SerializeField] private float distance;
@@ -45,7 +46,7 @@ public class Bomb : MonoBehaviour
         StartCoroutine(DelayCoroutine(2f, () => {
             Debug.Log("ぶっとばす！！！！");
             //エフェクトだす
-            Vector3 explosionPosition = transform.position;
+            Vector3 explosionPosition = bomb_center.transform.position;
             GameObject explosion = Instantiate(explosionFrefab, explosionPosition, Quaternion.identity);
             Destroy(explosion, 1.0f);
             audiomanager.playExplodeSound();
