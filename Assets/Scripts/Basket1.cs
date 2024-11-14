@@ -15,6 +15,8 @@ public class Basket1 : MonoBehaviour
 
     private Basket1 basketScript;  // Basket1のインスタンスを宣言
 
+    [SerializeField] private GameObject basket; // 籠オブジェクトを格納する変数
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -53,7 +55,11 @@ public class Basket1 : MonoBehaviour
                     objToShow.GetComponent<Collider>().enabled = false;
                     objToShow.GetComponent<Rigidbody>().isKinematic = true;
                     objToShow.tag = "NotMove";
-                    leaf_true.Add(objToShow);
+                    // 重複を防ぐため、リストに追加する前に含まれていないか確認
+                    if (!leaf_true.Contains(objToShow))
+                    {
+                        leaf_true.Add(objToShow);
+                    }
                     current_cage_leaf_index++; // 次のオブジェクトに進む
                 }
             }
@@ -61,9 +67,12 @@ public class Basket1 : MonoBehaviour
             Destroy(obj); // お茶の葉を削除
         }
 
-        if (obj.CompareTag("Touched1") || obj.CompareTag("Ochita"))
+        if (obj.CompareTag("Touched1"))
         {
             Debug.Log(obj.name + "がトリガーに入りました。");
+
+            // obj を basket の子オブジェクトにする
+            //obj.transform.parent = basket.transform;
 
             // 籠にお茶の葉を入れて、スコアを更新
             num_sheet += 1;
@@ -78,7 +87,14 @@ public class Basket1 : MonoBehaviour
                 obj.tag = "NotMove";
                 leaf_true.Add(obj);
             }
+            //Destroy(obj); // お茶の葉を削除
         }
+
+        // if (obj.CompareTag("Ochita"))
+        // {
+        //     // 2秒遅延させて追加するコルーチンを開始
+        //     StartCoroutine(DelayedAddLeaf(obj));
+        // }
     }
 
     // お茶の葉が籠から出たとき
@@ -89,17 +105,8 @@ public class Basket1 : MonoBehaviour
             Debug.Log(other.gameObject.name + "がトリガーから出ました。");
 
             // 1秒後にタグを変更
-            StartCoroutine(ChangeTagWithDelay(other, 1f));
-
-            // リストから出たオブジェクトを削除
-            if (basketScript.leaf_true.Contains(other.gameObject))
-            {
-                // LINQのWhereメソッドを使ってオブジェクトを削除
-                basketScript.leaf_true = basketScript.leaf_true.Where(obj => obj != other.gameObject).ToList();
-                // もしくは、Removeメソッドを使う場合:
-                // basketScript.leaf_true.Remove(other.gameObject);
-            }
-
+            //StartCoroutine(ChangeTagWithDelay(other, 1f));
+            
             // 籠から出たお茶の葉を非表示にしてスコアを減らす
             num_sheet -= 1;
 
@@ -114,9 +121,34 @@ public class Basket1 : MonoBehaviour
         return num_sheet;
     }
 
-    private IEnumerator ChangeTagWithDelay(Collider other, float delay)
-    {
-        yield return new WaitForSeconds(delay); // 指定した時間待機
-        other.tag = "Ochita"; // タグを変更
-    }
+
+    // private IEnumerator ChangeTagWithDelay(Collider other, float delay)
+    // {
+    //     yield return new WaitForSeconds(delay); // 指定した時間待機
+    //     other.tag = "Ochita"; // タグを変更
+    // }
+
+
+    // 2秒遅延させて葉を追加するコルーチン
+    // private IEnumerator DelayedAddLeaf(GameObject obj)
+    // {
+    //     // 2秒待つ
+    //     yield return new WaitForSeconds(2f);
+
+    //     Debug.Log(obj.name + "がトリガーに入りました。");
+
+    //     // 籠にお茶の葉を入れて、スコアを更新
+    //     num_sheet += 1;
+
+    //     // 次の非表示の葉を表示
+    //     if (current_cage_leaf_index < cage_leafs.Length)
+    //     {
+    //         Debug.Log("オブジェクトが現れるはず");
+    //         obj.SetActive(true); // オブジェクトを表示
+    //         obj.GetComponent<Collider>().enabled = false;
+    //         obj.GetComponent<Rigidbody>().isKinematic = true;
+    //         obj.tag = "NotMove";
+    //         leaf_true.Add(obj);
+    //     }
+    // }
 }

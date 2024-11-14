@@ -41,13 +41,22 @@ public class Bomb1 : MonoBehaviour
             if(Vector3.Distance(bombObj.transform.position, dishObj.transform.position) < distance)
             {
                 Debug.Log("範囲内！！！！");
-                foreach (GameObject leaf in basketScript.leaf_true)
+                List<GameObject> leavesCopy = new List<GameObject>(basketScript.leaf_true); // リストのコピーを作成
+                foreach (GameObject leaf in leavesCopy)
                 {
                     Debug.Log(leaf.name + " おちる！！！！");
+
+                    // まずリストから削除
+                    basketScript.leaf_true.Remove(leaf);
 
                     // leafのColliderとRigidbodyの設定を変更
                     leaf.GetComponent<Collider>().enabled = true;
                     leaf.GetComponent<Rigidbody>().isKinematic = false;
+
+                    leaf.tag = "Ochita";
+
+                    // basketオブジェクトの子オブジェクトから外す
+                    leaf.transform.parent = null;
 
                     // 飛ばす方向のベクトルをランダムに設定して加える
                     flyVec = new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(1.0f, 1.5f), UnityEngine.Random.Range(-2.0f, 2.0f));
