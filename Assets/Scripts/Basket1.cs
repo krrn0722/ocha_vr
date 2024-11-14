@@ -67,7 +67,7 @@ public class Basket1 : MonoBehaviour
             Destroy(obj); // お茶の葉を削除
         }
 
-        if (obj.CompareTag("Touched1"))
+        if (obj.CompareTag("Touched1") || obj.CompareTag("Ochita"))
         {
             Debug.Log(obj.name + "がトリガーに入りました。");
 
@@ -87,7 +87,8 @@ public class Basket1 : MonoBehaviour
                 obj.tag = "NotMove";
                 leaf_true.Add(obj);
             }
-            //Destroy(obj); // お茶の葉を削除
+            obj.SetActive(false);
+            num_sheet = 0; // お茶の葉を削除
         }
 
         // if (obj.CompareTag("Ochita"))
@@ -111,7 +112,7 @@ public class Basket1 : MonoBehaviour
             num_sheet -= 1;
 
             // スコア更新後の処理など
-            Debug.Log("Tea Leaf exited! Score: " + num_sheet);
+            Debug.Log("お茶が落ちた！！! Score: " + num_sheet);
         }
     }
 
