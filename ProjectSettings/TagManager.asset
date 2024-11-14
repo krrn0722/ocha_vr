@@ -16,6 +16,9 @@ TagManager:
   - NotTouch
   - Touched
   - NotMove
+  - Basket
+  - Touched1
+  - Ochita
   layers:
   - Default
   - TransparentFX

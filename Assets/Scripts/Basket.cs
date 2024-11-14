@@ -105,7 +105,6 @@ using UnityEngine.Events;
 
 public class Basket : MonoBehaviour
 {
-    [SerializeField] GameObject basket; // 籠のオブジェクト
     [SerializeField] int num_sheet = 0; // 現在のスコア
     [SerializeField] private GameObject[] cage_leafs; //籠に入れるお茶の葉
     private int current_cage_leaf_index = 0; //籠に入れるお茶の葉のインデックス
@@ -139,7 +138,6 @@ public class Basket : MonoBehaviour
             if (current_cage_leaf_index < cage_leafs.Length)
             {
                 GameObject objToShow = cage_leafs[current_cage_leaf_index];
-                objToShow.transform.parent = basket.transform;
                 if (objToShow != null)
                 {
                     Debug.Log("オブジェクトが現れるはず");
@@ -157,7 +155,7 @@ public class Basket : MonoBehaviour
     // お茶の葉が籠から出たとき
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("NotTouch"))
+        if (other.CompareTag("NotMove"))
         {
             Debug.Log(other.gameObject.name + "がトリガーから出ました。");
 
