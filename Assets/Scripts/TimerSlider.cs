@@ -32,7 +32,7 @@ public class TimerSlider : MonoBehaviour
             }
             if(timerSlider.value <= 0)
             {
-                Debug.Log("Time Up!");
+                //Debug.Log("Time Up!");
                 gameManager.finishGame();
                 isStartTimer = false;
             }
