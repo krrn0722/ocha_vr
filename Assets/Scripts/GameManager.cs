@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private ShakeMove shakeMove;
     [SerializeField] private TimerSlider timerSlider;
-    [SerializeField] private Basket basket;
+    [SerializeField] private Basket1 basket;
     [SerializeField] private PlayFabController playFabController;
     [SerializeField] private GameObject rankingObj;
     [SerializeField] private BGMManager bgmManager;

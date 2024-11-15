@@ -130,7 +130,7 @@ public class PlayFabController : MonoBehaviour
         {
             foreach (var item in leaderboardResult.Leaderboard)
             {
-                rankingDisplay.setAroundRanking((item.Position).ToString(), item.DisplayName, item.StatValue.ToString());
+                rankingDisplay.setAroundRanking((item.Position+1).ToString(), item.DisplayName, item.StatValue.ToString());
             }
         }
 

@@ -14,6 +14,8 @@ public class Bomb1 : MonoBehaviour
     [SerializeField] private GameObject explosionFrefab;
     private Vector3 flyVec;
     [SerializeField] private GameObject dishObj;
+    [SerializeField] private Basket1 basket1;
+    [SerializeField] private createHappa createHappa;
 
     private void Start()
     {
@@ -40,6 +42,7 @@ public class Bomb1 : MonoBehaviour
             //範囲内に皿があったら吹っ飛ばす
             if(Vector3.Distance(bombObj.transform.position, dishObj.transform.position) < distance)
             {
+                audiomanager.playGuuSound();
                 Debug.Log("範囲内！！！！");
                 List<GameObject> leavesCopy = new List<GameObject>(basketScript.leaf_true); // リストのコピーを作成
                 foreach (GameObject leaf in leavesCopy)
@@ -59,10 +62,15 @@ public class Bomb1 : MonoBehaviour
                     leaf.transform.parent = null;
 
                     // 飛ばす方向のベクトルをランダムに設定して加える
-                    flyVec = new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(1.0f, 1.5f), UnityEngine.Random.Range(-2.0f, 2.0f));
-                    leaf.GetComponent<Rigidbody>().AddForce(flyVec * speed);
+                    // flyVec = new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(1.0f, 1.5f), UnityEngine.Random.Range(-2.0f, 2.0f));
+                    // leaf.GetComponent<Rigidbody>().AddForce(flyVec * speed);
                 }
             }
+            for (int i = 0; i < basket1.getNumLeaf() ; i++)
+            {
+                createHappa.createflyHappa();
+            }
+            // お茶の葉の数をリセット
             //範囲内にあるお茶の葉をふっとばす
 
             GameObject[] obstacles = GameObject.FindGameObjectsWithTag("NotTouch");
@@ -71,6 +79,8 @@ public class Bomb1 : MonoBehaviour
                 {
                     obs.GetComponent<Collider>().enabled = true;
                     obs.GetComponent<Rigidbody>().isKinematic = false;
+                    flyVec = new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), UnityEngine.Random.Range(1.0f, 1.5f), UnityEngine.Random.Range(-2.0f, 2.0f));
+                    obs.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-2, 2), Random.Range(12,25), Random.Range(-2, 2)), ForceMode.Impulse);
                 }
             }
         }));                

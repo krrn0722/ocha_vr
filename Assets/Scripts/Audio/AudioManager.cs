@@ -8,6 +8,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip explodeSound;
     public AudioClip hakusyuSound;
 
+    public AudioClip yattaSound;
+
+    public AudioClip guaaSound;
+
     [SerializeField] AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -31,5 +35,13 @@ public class AudioManager : MonoBehaviour
     public void playHakusyuSound()
     {
         audioSource.PlayOneShot(hakusyuSound);
+    }
+    public void playYattaSound()
+    {
+        audioSource.PlayOneShot(yattaSound);
+    }
+    public void playGuuSound()
+    {
+        audioSource.PlayOneShot(guaaSound);
     }
 }

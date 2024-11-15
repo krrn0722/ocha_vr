@@ -16,18 +16,12 @@ public class Basket1 : MonoBehaviour
     private Basket1 basketScript;  // Basket1のインスタンスを宣言
 
     [SerializeField] private GameObject basket; // 籠オブジェクトを格納する変数
+    [SerializeField] private int totalLeafNum; // 皿オブジェクトを格納する変数
+    [SerializeField] AudioManager audiomanager;
 
     // Start is called before the first frame update
     private void Start()
     {
-        // ゲーム開始時に全てのオブジェクトを非表示にする
-        foreach(GameObject cage_leaf in cage_leafs)
-        {
-            if(cage_leaf != null)
-            {
-                cage_leaf.SetActive(false);
-            }
-        }
         // インスタンス化
         basketScript = GetComponent<Basket1>();  // Basket1スクリプトを取得
     }
@@ -44,6 +38,7 @@ public class Basket1 : MonoBehaviour
             // 籠にお茶の葉を入れて、スコアを更新
             num_sheet += 1;
 
+            audiomanager.playYattaSound();
             // 次の非表示の葉を表示
             if (current_cage_leaf_index < cage_leafs.Length)
             {
@@ -67,9 +62,10 @@ public class Basket1 : MonoBehaviour
             Destroy(obj); // お茶の葉を削除
         }
 
-        if (obj.CompareTag("Touched1") || obj.CompareTag("Ochita"))
+        if (obj.CompareTag("Ochita"))
         {
             Debug.Log(obj.name + "がトリガーに入りました。");
+
 
             // obj を basket の子オブジェクトにする
             //obj.transform.parent = basket.transform;
@@ -78,15 +74,15 @@ public class Basket1 : MonoBehaviour
             num_sheet += 1;
 
             // 次の非表示の葉を表示
-            if (current_cage_leaf_index < cage_leafs.Length)
-            {
-                Debug.Log("オブジェクトが現れるはず");
-                obj.SetActive(true); // オブジェクトを表示
-                obj.GetComponent<Collider>().enabled = false;
-                obj.GetComponent<Rigidbody>().isKinematic = true;
-                obj.tag = "NotMove";
-                leaf_true.Add(obj);
-            }
+            // if (current_cage_leaf_index < cage_leafs.Length)
+            // {
+            //     Debug.Log("オブジェクトが現れるはず");
+            //     obj.SetActive(true); // オブジェクトを表示
+            //     obj.GetComponent<Collider>().enabled = false;
+            //     obj.GetComponent<Rigidbody>().isKinematic = true;
+            //     obj.tag = "NotMove";
+            //     leaf_true.Add(obj);
+            // }
             obj.SetActive(false);
             num_sheet = 0; // お茶の葉を削除
         }
@@ -119,7 +115,7 @@ public class Basket1 : MonoBehaviour
     // スコアを取得
     public int GetScore()
     {
-        return num_sheet;
+        return (int)num_sheet * 100/ totalLeafNum ;
     }
 
 
@@ -152,4 +148,9 @@ public class Basket1 : MonoBehaviour
     //         leaf_true.Add(obj);
     //     }
     // }
+
+    public int getNumLeaf()
+    {
+        return num_sheet;
+    }
 }

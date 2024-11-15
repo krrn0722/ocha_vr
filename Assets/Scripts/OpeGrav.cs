@@ -25,13 +25,6 @@ public class OpeGrav : MonoBehaviour
 
     public void addTag()
     {
-        if (this.tag == "Ochita")
-        {
-            this.tag = "Touched1";  // タグを "Touched1" に変更
-        }
-        else
-        {
-            this.tag = "Touched";   // それ以外は "Touched" に変更
-        }
+        this.tag = "Touched";
     }
 }
