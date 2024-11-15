@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public AudioClip sound1;
     public AudioClip explodeSound;
+    public AudioClip hakusyuSound;
 
     [SerializeField] AudioSource audioSource;
 
@@ -27,4 +28,8 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.PlayOneShot(explodeSound);
     }    
+    public void playHakusyuSound()
+    {
+        audioSource.PlayOneShot(hakusyuSound);
+    }
 }

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayFabController playFabController;
     [SerializeField] private GameObject rankingObj;
     [SerializeField] private BGMManager bgmManager;
+    [SerializeField] private AudioManager audioManager;
     
     private float countDownTime = 3.4f;
     private int score;
@@ -84,6 +85,8 @@ public class GameManager : MonoBehaviour
     public void finishGame()
     {
         gameStatus = GameStatus.FINISHED;
+        audioManager.playHakusyuSound(); // 終了時に効果音を再生
+        
 
         if (basket != null)
         {
